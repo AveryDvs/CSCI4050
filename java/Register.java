@@ -1,6 +1,11 @@
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.http.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.sql.*;
 
 @WebServlet("/RegistrationServlet")
@@ -8,6 +13,7 @@ public class Register extends HttpServlet {
     
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         
+            
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
 
@@ -21,11 +27,11 @@ public class Register extends HttpServlet {
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","root");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","lkjhlkjh");
 
             PreparedStatement ps = con.prepareStatement("insert into user values(?,?,?,?,?)");
 
-            ps.setInt(1,1);
+            ps.setString(1,"test");
             ps.setString(2, pass);
             ps.setString(3, nameF);
             ps.setString(4, nameL);
@@ -33,12 +39,17 @@ public class Register extends HttpServlet {
             
             PreparedStatement psc = con.prepareStatement("insert into Customer values(?,?,?,?,?)");
 
-            psc.setInt(1,1);
-            psc.setInt(2,1);
+            psc.setString(1,"test");
+            psc.setString(2,"test");
             psc.setString(3, email);
             psc.setString(4, phone);
             psc.setString(5, "'A'");
 
+            
+            PrintWriter out1 = response.getWriter(); 
+            out1.println("<html><body><b>Successfully Inserted"
+                        + "</b></body></html>");
+            
         } catch (Exception e) {
             e.printStackTrace();
         }
