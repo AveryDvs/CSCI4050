@@ -1,29 +1,39 @@
-import java.io.*;
-import javax.servlet.*;
-import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.*;
 
-@WebServlet("/LoginServlet")
+import javax.servlet.*;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+/**
+ * Servlet implementation class Login
+ */
 public class Login extends HttpServlet {
+	
+	/**
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
+		// TODO Auto-generated method stub
+		PrintWriter out = response.getWriter();
         
-        String email = request.getParameter("email");
+        String uname = request.getParameter("uname");
         String pass = request.getParameter("psw");
-        String query = "select user_id, cast(aes_decrypt(password, \"4050\") as char(100)), User_Type from bookstore.user;";
+        String query = "select user_id, cast(aes_decrypt(password, \"4050\") as char), User_Type from bookstore.user;";
         String userType = "";
         
         boolean valid = false;
         try {
         	Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/test","root","4122");
+			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore","root","4122");
 			Statement st = con.createStatement();
 			ResultSet rs =st.executeQuery(query);
 			
 			while(rs.next() && !valid) {
-				if (rs.getString(1).equalsIgnoreCase(email) && rs.getString(2).equals(pass)) {
+				if (rs.getString(1).equalsIgnoreCase(uname) && rs.getString(2).equals(pass)) {
 					valid = true;
 					userType = rs.getString(3);
 				}
@@ -43,9 +53,13 @@ public class Login extends HttpServlet {
                 rs.include(request, response);
         	}
         } else {
-        	out.println("Username and Password incorrect");
+        	out.println("<script>");
+            out.println("alert('Email or password incorrect, Try again');");
+            out.println("</script>");
         	RequestDispatcher rs = request.getRequestDispatcher("login.html");
             rs.include(request, response);
         }
 	}
+	
+
 }
