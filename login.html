@@ -39,12 +39,12 @@
       <main id="main-reg-log">
       <article id="art-reg-log">
         <h1 class="page-title">Login</h1>
-
+        <form action="loginServlet" method="post">
         <p>Please enter your login information.</p>
         <hr>
 
-        <label for="email" class="reg-label"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email" name="email" id="email" required>
+        <label for="uname" class="reg-label"><b>User Name</b></label>
+        <input type="text" placeholder="Enter Username" name="uname" id="email" required>
 
         <label for="psw" class="reg-label"><b>Password</b></label>
         <input type="password" placeholder="Enter Password" name="psw" id="psw" required>
@@ -52,8 +52,9 @@
         <hr>
 
         <p>Need to make an account? <a href="register.html">Register Here</a>.</p>
+        <p>Forgot your User Name or Password? <a href="getInfo.html">Get Here</a>.</p>
         <button type="submit" class="submitbtn">Sign In</button>
-        
+        </form>
       </article>
     </main>
 
