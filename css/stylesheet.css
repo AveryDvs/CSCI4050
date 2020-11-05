@@ -227,9 +227,9 @@ footer{
   text-align: center;
 }
 
-/* Text Input for Regitration Page */
+/* Text Input for Registration Page */
 
-input[type=text], input[type=password] {
+input[type=text], input[type=password], input[type=email] {
   width: 96%;
   padding: 15px;
   margin: 5px 0 22px 0;

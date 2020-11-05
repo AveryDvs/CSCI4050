@@ -79,7 +79,7 @@ public class Register extends HttpServlet {
 	        String password = "Bookpassword9C";
 	        String toAddress = email;
 	        String subject = "Thank You For Registering With Us!";
-	        String message = "Thank you for regietring with our Bookstore. You now have access to our site!" ;
+	        String message = "Thank you for registering with our Bookstore. You now have access to our site!" ;
 	        
 	        try {
 				EmailUtility.sendEmail(host, port, emailId, password, toAddress, subject, message);
