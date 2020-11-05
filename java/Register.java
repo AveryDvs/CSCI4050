@@ -30,6 +30,7 @@ public class Register extends HttpServlet {
         String nameF = request.getParameter("name-first");
         String nameL = request.getParameter("name-last");
         String email = request.getParameter("email");
+        String uname = request.getParameter("uname");
         String pass = request.getParameter("psw");
         String phone = request.getParameter("phone");
         pass = "aes_encrypt('" + pass + "', '4050')";
@@ -37,54 +38,46 @@ public class Register extends HttpServlet {
         try {
 
             Class.forName("com.mysql.jdbc.Driver");
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore","root","lkjhlkjh");
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore","root","4122");
 
-            PreparedStatement ps = con.prepareStatement("insert into user values(?,?,?,?,?)");
+            Statement st = con.createStatement();
+			ResultSet rs =st.executeQuery("SELECT max(customer_id) FROM bookstore.customer;");
+			rs.next();
+			int cusId = rs.getInt(1) + 1;
+            
+            PreparedStatement ps = con.prepareStatement("insert into user (user_id, password, first_name, last_name, User_Type)\r\n"
+            		+ "	values ( ?, ?, ?, ?, 'C');");
 
-            ps.setString(1,"test");
+            ps.setString(1, uname);
             ps.setString(2, pass);
             ps.setString(3, nameF);
             ps.setString(4, nameL);
-            ps.setString(5, "'C'");
+           
             
-            PreparedStatement psc = con.prepareStatement("insert into Customer values(?,?,?,?,?)");
+            PreparedStatement psc = con.prepareStatement("insert into Customer (customer_id, user_id, email_address, phone_number, status)\r\n"
+            		+ "	values (?, ?, ?, ?, 'A');");
 
-            psc.setString(1,"test");
-            psc.setString(2,"test");
+            psc.setInt(1, cusId);
+            psc.setString(2, uname);
             psc.setString(3, email);
             psc.setString(4, phone);
-            psc.setString(5, "'A'");
+            
+            ps.executeUpdate();
+            psc.executeUpdate();
 
             
-            PrintWriter out1 = response.getWriter(); 
-            out1.println("<html><body><b>Successfully Inserted"
-                        + "</b></body></html>");
             
         } catch (Exception e) {
             e.printStackTrace();
         }
         
-        String query = "SELECT email_address, bookstore.user.user_id, cast(aes_decrypt(password, \"4050\") as char) FROM bookstore.customer inner join bookstore.user on bookstore.user.user_id = bookstore.customer.user_id;";
-        boolean valid = false;
         
-        try {
-        	Class.forName("com.mysql.jdbc.Driver");
-			Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore","root","4122");
-			Statement st = con.createStatement();
-			ResultSet rs =st.executeQuery(query);
-			
-			
-			
-		} catch (SQLException | ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        if (valid) {
+        
 	        String host = "smtp.gmail.com";
 	        String port = "587";
 	        String emailId = "bookstore9c@gmail.com";
 	        String password = "Bookpassword9C";
-	        String toAddress = "bookstore9c@gmail.com";
+	        String toAddress = email;
 	        String subject = "Thank You For Registering With Us!";
 	        String message = "Thank you for regietring with our Bookstore. You now have access to our site!" ;
 	        
@@ -97,23 +90,15 @@ public class Register extends HttpServlet {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	        out.println("<script>");
-            out.println("alert('Email sent successfully, Check your email');");
-            out.println("</script>");
-        	RequestDispatcher rs = request.getRequestDispatcher("register-confirmation.html");
-            rs.include(request, response);
-        
-        } else {
-        	out.println("<script>");
-            out.println("alert('We do not have any account with provided email, Try again');");
-            out.println("</script>");
-        	RequestDispatcher rs = request.getRequestDispatcher("register-confirmation.html");
-            rs.include(request, response);
-        }
-        
+	        
+	        RequestDispatcher rd = request.getRequestDispatcher("register-confirmation.html");
+            rd.include(request, response);
+       
+       
         
         }
 }
+
 
 
 
