@@ -1,3 +1,10 @@
+
+/*
+    This function returns a newly created user_id based on the first_name and the last_name entered.
+	e.g. if user enters John Smith as his name, it'll return jsNNN as his user_id.
+	It also checks if the enterd email-id has already been used. In that case, it returns an error EMAIL_EXISTS.
+*/
+
 CREATE FUNCTION create_user (fName varchar(45), lName varchar(45), email varchar(45), passwd varchar(45), phoneNo varchar(45) ) RETURNS varchar(45) CHARSET utf8
     DETERMINISTIC
 BEGIN
