@@ -33,7 +33,7 @@ public class EditProfile extends HttpServlet{
             	stmt1.setString(3,password);
             	stmt1.executeUpdate();
             	
-            	PreparedStatement stmt2 = con.prepareStatement("insert into customer values(email) VALUES(?)");
+            	PreparedStatement stmt2 = con.prepareStatement("insert into Customer values(email) VALUES(?)");
             	stmt2.setString(1,email);
             	stmt2.executeUpdate();
             	
