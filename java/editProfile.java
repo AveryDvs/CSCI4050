@@ -69,7 +69,7 @@ public class editProfile extends HttpServlet{
          	
             	//Update Customer table in db(phone number and email)
             	stmt2 = con.createStatement();
-            	String query4 = "UPDATE customer set phone= " + phone + ", email= " + email + "WHERE customer_id= " + customerID;
+            	String query4 = "UPDATE customer set phone= " + phone + ", email_address= " + email + "WHERE customer_id= " + customerID;
             	stmt2.executeUpdate(query4);
             	
             	out.println("<html><body><b>" + "Successfully Updated" + "</b></body></html>");
