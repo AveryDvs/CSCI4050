@@ -39,7 +39,7 @@ public class Register extends HttpServlet {
 		String phone = request.getParameter("phone");
 		pass = "aes_encrypt('" + pass + "', '4050')";
 
-		String street = request.getParameter("street");
+		/* String street = request.getParameter("street");
 		String city = request.getParameter("city");
 		String state = request.getParameter("State");
 		String zip = request.getParameter("zip");
@@ -47,7 +47,7 @@ public class Register extends HttpServlet {
 		String ccnum = request.getParameter("ccnum");
 		String cvc = request.getParameter("cvc");
 		String expDate = request.getParameter("expDate");
-		String ccname = request.getParameter("ccname");
+		String ccname = request.getParameter("ccname"); */
 
 		try {
 
@@ -99,7 +99,7 @@ public class Register extends HttpServlet {
 				psc.setString(3, email);
 				psc.setString(4, phone);
 
-				PreparedStatement psa = con.prepareStatement(
+				/* PreparedStatement psa = con.prepareStatement(
 						"insert into Address (addess_id, customer_id, street, city, state, zip, address_type)\r\n"
 								+ "values (?, ?, ?, ?, ?, ?, ?)");
 
@@ -140,12 +140,12 @@ public class Register extends HttpServlet {
 				pscc.setInt(2, addCusId2);
 				pscc.setString(3, ccnum);
 				pscc.setString(4, expDate);
-				pscc.setString(5, getCardType(ccnum));
+				pscc.setString(5, getCardType(ccnum)); */
 
 				//ps.executeUpdate();
 				//psc.executeUpdate();
-				psa.executeUpdate();
-				pscc.executeUpdate();
+				//psa.executeUpdate();
+				//pscc.executeUpdate();
 
 			} else {
 				test = false;
