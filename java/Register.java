@@ -1,11 +1,13 @@
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.sql.Types;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.AddressException;
@@ -30,7 +32,7 @@ public class Register extends HttpServlet {
 		String nameF = request.getParameter("name-first");
 		String nameL = request.getParameter("name-last");
 		String email = request.getParameter("email");
-		String uname = request.getParameter("uname");
+		//String uname = request.getParameter("uname");
 		String pass = request.getParameter("psw");
 		String phone = request.getParameter("phone");
 		pass = "aes_encrypt('" + pass + "', '4050')";
@@ -49,7 +51,18 @@ public class Register extends HttpServlet {
 			}
 
 			if (duplicate == null) {
-
+				
+				CallableStatement cs = con.prepareCall("{? = call create_user(?,?,?,?,?)}");
+				
+				cs.registerOutParameter(1, Types.VARCHAR);
+				cs.setString(2, nameF);
+				cs.setString(3, nameL);
+				cs.setString(4, email);
+				cs.setString(5, pass);
+				cs.setString(6, phone);
+				cs.execute();
+				String uId = cs.getString(1);
+				
 				st = con.createStatement();
 				ResultSet rs = st.executeQuery("SELECT max(customer_id) FROM bookstore.customer;");
 				rs.next();
@@ -59,7 +72,7 @@ public class Register extends HttpServlet {
 						.prepareStatement("insert into user (user_id, password, first_name, last_name, User_Type)\r\n"
 								+ "	values ( ?, ?, ?, ?, 'C');");
 
-				ps.setString(1, uname);
+				ps.setString(1, uId);
 				ps.setString(2, pass);
 				ps.setString(3, nameF);
 				ps.setString(4, nameL);
@@ -69,7 +82,7 @@ public class Register extends HttpServlet {
 								+ "	values (?, ?, ?, ?, 'A');");
 
 				psc.setInt(1, cusId);
-				psc.setString(2, uname);
+				psc.setString(2, uId);
 				psc.setString(3, email);
 				psc.setString(4, phone);
 
