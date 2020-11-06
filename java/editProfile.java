@@ -15,7 +15,7 @@ public class editProfile extends HttpServlet{
 		//set up and introduce file
 		response.setContentType("text/html;charset=UTF-8");
 		PrintWriter out = response.getWriter();
-		//out.println("<h1>" + "Edit Profile" + "</h1>");
+		out.println("<h1>" + "Current Information" + "</h1>");
 		
 		//get the information needed
 		String firstName = request.getParameter("name-first");
@@ -41,7 +41,13 @@ public class editProfile extends HttpServlet{
 			userID = c[i].getValue();
 			}
 		}
+		
 		String customerID = "";
+		String currentFName = "";
+		String currentLName = "";
+		String currentPhone = "";
+		String email = "";
+		
 		try{
             Class.forName("com.mysql.jdbc.Driver");
             Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/bookstore","root","4122");
@@ -56,9 +62,17 @@ public class editProfile extends HttpServlet{
             			customerID = rs.getString(1);
             		}
             	}
+            
+            	//Get Current Information
+            	Statement st2 = con.createStatement();
+            	ResultSet rs2 = st.executeQuery("SELECT first_name, last_name, FROM bookstore.user");
             	
+            	
+            	//Display Current information
+            	
+            
             	//Update user table in db(First and last names, password
-            	String query3 = "UPDATE user set first_name=?,last_name=?,password=? where userID=" + userID;
+            	String query3 = "UPDATE User set first_name=?,last_name=?,password=? where userID=" + userID;
             	PreparedStatement stmt1 = con.prepareStatement(query3);
             	stmt1.setString(1,firstName);
             	stmt1.setString(2,lastName);
@@ -85,6 +99,7 @@ public class editProfile extends HttpServlet{
             	 * PreparedStatement stmt4= con.prepareStatement(UPDATE Payment_Card set card_number=?,expiration_date=? WHERE customer_ID=" + customerID);
             	 * stmt4.setString(1,cardNum);
             	 * stmt4.setString(2,expirationDate);
+            	 * int l = stmt4.executeUpdate();
             	 */
             	out.println("<script>");
             	out.println("alert('Successfully Updated');");
@@ -92,7 +107,7 @@ public class editProfile extends HttpServlet{
             }
             else {
             	out.println("<script>");
-            	out.println("alert('Email or password incorrect, Try again');");
+            	out.println("alert('Password incorrect or new passwords do not match, Try again');");
             	out.println("</script>");
             }
         }	catch(SQLException | ClassNotFoundException e) {
