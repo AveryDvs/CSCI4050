@@ -109,7 +109,13 @@ public class Register extends HttpServlet {
 				rs1.next();
 				int addId = rs1.getInt(1) + 1;
 				psa.setInt(1, addId);
-				psa.setInt(2, cusId);
+				
+				Statement stm1 = con.createStatement();
+				ResultSet rsc1 =stm1.executeQuery("SELECT max(customer_id) FROM bookstore.customer;");
+				rsc1.next();
+				int addCusId1 = rsc1.getInt(1);
+				
+				psa.setInt(2, addCusId1);
 				psa.setString(3, street);
 				psa.setString(4, city);
 				psa.setString(5, state);
@@ -118,7 +124,7 @@ public class Register extends HttpServlet {
 				
 
 				PreparedStatement pscc = con.prepareStatement(
-						"insert into Payment_Card (card_id, cutomer_id, card_number, expiration_date, card_type)\r\n"
+						"insert into Payment_Card (card_id, customer_id, card_number, expiration_date, card_type)\r\n"
 								+ "values (?, ?, ?, ?, ?)");
 
 				Statement st2 = con.createStatement();
@@ -126,7 +132,12 @@ public class Register extends HttpServlet {
 				rs2.next();
 				int cardId = rs2.getInt(1) + 1;
 				pscc.setInt(1, cardId);
-				pscc.setInt(2, cusId);
+				
+				Statement stm2 = con.createStatement();
+				ResultSet rsc2 =stm2.executeQuery("SELECT max(customer_id) FROM bookstore.customer;");
+				rsc2.next();
+				int addCusId2 = rsc2.getInt(1);
+				pscc.setInt(2, addCusId2);
 				pscc.setString(3, ccnum);
 				pscc.setString(4, expDate);
 				pscc.setString(5, getCardType(ccnum));
