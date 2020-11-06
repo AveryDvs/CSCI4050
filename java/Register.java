@@ -1,3 +1,5 @@
+package com.bookstore;
+
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.CallableStatement;
@@ -39,7 +41,7 @@ public class Register extends HttpServlet {
 
 		String street = request.getParameter("street");
 		String city = request.getParameter("city");
-		String state = request.getParameter("state");
+		String state = request.getParameter("State");
 		String zip = request.getParameter("zip");
 
 		String ccnum = request.getParameter("ccnum");
@@ -78,6 +80,7 @@ public class Register extends HttpServlet {
 				rs.next();
 				int cusId = rs.getInt(1) + 1;
 
+				
 				PreparedStatement ps = con
 						.prepareStatement("insert into user (user_id, password, first_name, last_name, User_Type)\r\n"
 								+ "	values ( ?, ?, ?, ?, 'C');");
@@ -100,24 +103,36 @@ public class Register extends HttpServlet {
 						"insert into Address (addess_id, customer_id, street, city, state, zip, address_type)\r\n"
 								+ "values (?, ?, ?, ?, ?, ?, ?)");
 
+				
+				Statement st1 = con.createStatement();
+				ResultSet rs1 = st1.executeQuery("SELECT max(addess_id) FROM bookstore.address;");
+				rs1.next();
+				int addId = rs1.getInt(1) + 1;
+				psa.setInt(1, addId);
 				psa.setInt(2, cusId);
 				psa.setString(3, street);
 				psa.setString(4, city);
 				psa.setString(5, state);
 				psa.setString(6, zip);
 				psa.setString(7, "'S'");
+				
 
 				PreparedStatement pscc = con.prepareStatement(
 						"insert into Payment_Card (card_id, cutomer_id, card_number, expiration_date, card_type)\r\n"
 								+ "values (?, ?, ?, ?, ?)");
 
+				Statement st2 = con.createStatement();
+				ResultSet rs2 = st2.executeQuery("SELECT max(card_id) FROM bookstore.Payment_Card;");
+				rs2.next();
+				int cardId = rs2.getInt(1) + 1;
+				pscc.setInt(1, cardId);
 				pscc.setInt(2, cusId);
 				pscc.setString(3, ccnum);
 				pscc.setString(4, expDate);
 				pscc.setString(5, getCardType(ccnum));
 
-				ps.executeUpdate();
-				psc.executeUpdate();
+				//ps.executeUpdate();
+				//psc.executeUpdate();
 				psa.executeUpdate();
 				pscc.executeUpdate();
 
