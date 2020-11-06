@@ -34,7 +34,7 @@ public class editProfile extends HttpServlet{
 		 * String expirationDate = request.getParameter("expiration-date");
 		 */
 		
-		//Cookie uName = new Cookie("uname", request.getParameter("uname"));
+		Cookie uName = new Cookie("uname", request.getParameter("uname"));
 		String userID = "";
 		Cookie c[] = request.getCookies();
 		for(Cookie cookie: c) {
@@ -60,7 +60,7 @@ public class editProfile extends HttpServlet{
             	}
             	
             	//Update user table in db(First and last names, password
-            	String query3 = "UPDATE bookstore.user set first_name=?,last_name=?,password=? where userID=" + userID;
+            	String query3 = "UPDATE user set first_name=?,last_name=?,password=? where userID=" + userID;
             	PreparedStatement stmt1 = con.prepareStatement(query3);
             	stmt1.setString(1,firstName);
             	stmt1.setString(2,lastName);
@@ -68,7 +68,7 @@ public class editProfile extends HttpServlet{
             	int i = stmt1.executeUpdate();
          	
             	//Update Customer table in db(phone number and email)
-            	PreparedStatement stmt2 = con.prepareStatement("UPDATE bookstore.customer set phone_number=? WHERE customerID=" + customerID);
+            	PreparedStatement stmt2 = con.prepareStatement("UPDATE customer set phone_number=? WHERE customerID=" + customerID);
             	stmt2.setString(1,phone);
             	int j = stmt2.executeUpdate();
             	
