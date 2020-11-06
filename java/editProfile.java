@@ -38,7 +38,7 @@ public class editProfile extends HttpServlet{
 		String userID = "";
 		Cookie c[] = request.getCookies();
 		for(Cookie cookie: c) {
-			if(c.getName().equals("uname")){
+			if(cookie.getName().equals("uname")){
 			userID = c[1].getValue();
 			}
 		}
