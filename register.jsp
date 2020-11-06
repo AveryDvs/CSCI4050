@@ -63,7 +63,7 @@
         <input type="text" placeholder="Enter Street Name" name="street" id="street">
         <input type="text" placeholder="Enter City Name" name="city" id="city">
         <input type="text" placeholder="Enter Zip Code" name="zip" id="zip">
-        <input type="text" placeholder="Enter State Name" name="State" id="State">
+        <input type="text" placeholder="Enter State Name" name="state" id="state">
         
         
         <label for="creditcard" class="reg-label"><b>Credit Card Information</b></label>
