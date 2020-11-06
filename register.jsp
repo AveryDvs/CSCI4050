@@ -11,7 +11,7 @@
   <meta name="author" content="Nidesh">
   <title>BookStore | Home</title>
   <link rel="stylesheet" href="./css/stylesheet.css">
-  <script src="scripts.js"></script>
+  <script src="./js/scritps.js"></script>
 </head>
 
 <body>
@@ -37,7 +37,7 @@
   <section id="sec-reg-log">
     <div class="container">
       <main id="main-reg-log">
-        <form action="java/Register">
+        <form action="java/Register" method="post">
       <article id="art-reg-log">
         <h1 class="page-title">Register</h1>
 
@@ -51,7 +51,7 @@
         <input type="text" placeholder="Enter Email *" name="email" id="email" required>
 
         <label for="phone" class="reg-label"><b>Phone Number</b></label>
-        <input type="text" placeholder="Enter Phone Number (XXX-XXX-XXXX) *" name="number" id="number" required>
+        <input type="text" placeholder="Enter Phone Number (XXX-XXX-XXXX) *" name="phone" id="phone" required>
 
         <label for="psw" class="reg-label"><b>Password</b></label>
         <input type="password" placeholder="Enter Password *" name="psw" id="psw" required>
