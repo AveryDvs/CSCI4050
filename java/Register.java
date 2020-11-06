@@ -95,7 +95,7 @@ public class Register extends HttpServlet {
 				out.println(
 						"alert('This email is already in the database; please try again with a different email address.');");
 				out.println("</script>");
-				RequestDispatcher rd = request.getRequestDispatcher("registration.html");
+				RequestDispatcher rd = request.getRequestDispatcher("registration.jsp");
 				rd.include(request, response);
 			}
 

@@ -48,8 +48,8 @@
         <input type="text" class="name" placeholder="Last Name *" name="name-last" id="name-last" required>
 
         <label for="email" class="reg-label"><b>Email</b></label>
-        <input type="text" placeholder="Enter Email *" name="email" id="email" required>
-
+        <input type="email" placeholder="Enter Email *" name="email" id="email" required>
+        
         <label for="phone" class="reg-label"><b>Phone Number</b></label>
         <input type="text" placeholder="Enter Phone Number (XXX-XXX-XXXX) *" name="phone" id="phone" required>
 
