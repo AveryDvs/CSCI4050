@@ -64,12 +64,12 @@ public class editProfile extends HttpServlet{
             	//Update user table in db(First and last names, password
             	stmt1 = con.createStatement();
             	String query3 = "UPDATE user set first_name= " + firstName + ", last_name= " + lastName + ", password= " + password 
-            			+ "WHERE user_id =" + userID;
+            			+ " WHERE user_id =" + userID;
             	stmt1.executeUpdate(query3);    	
          	
             	//Update Customer table in db(phone number and email)
             	stmt2 = con.createStatement();
-            	String query4 = "UPDATE customer set phone= " + phone + ", email_address= " + email + "WHERE customer_id= " + customerID;
+            	String query4 = "UPDATE customer set phone= " + phone + ", email_address= " + email + " WHERE customer_id= " + customerID;
             	stmt2.executeUpdate(query4);
             	
             	out.println("<html><body><b>" + "Successfully Updated" + "</b></body></html>");
