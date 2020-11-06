@@ -32,10 +32,20 @@ public class Register extends HttpServlet {
 		String nameF = request.getParameter("name-first");
 		String nameL = request.getParameter("name-last");
 		String email = request.getParameter("email");
-		//String uname = request.getParameter("uname");
+		// String uname = request.getParameter("uname");
 		String pass = request.getParameter("psw");
 		String phone = request.getParameter("phone");
 		pass = "aes_encrypt('" + pass + "', '4050')";
+
+		String street = request.getParameter("street");
+		String city = request.getParameter("city");
+		String state = request.getParameter("state");
+		String zip = request.getParameter("zip");
+
+		String ccnum = request.getParameter("ccnum");
+		String cvc = request.getParameter("cvc");
+		String expDate = request.getParameter("expDate");
+		String ccname = request.getParameter("ccname");
 
 		try {
 
@@ -51,9 +61,9 @@ public class Register extends HttpServlet {
 			}
 
 			if (duplicate == null) {
-				
+
 				CallableStatement cs = con.prepareCall("{? = call create_user(?,?,?,?,?)}");
-				
+
 				cs.registerOutParameter(1, Types.VARCHAR);
 				cs.setString(2, nameF);
 				cs.setString(3, nameL);
@@ -62,7 +72,7 @@ public class Register extends HttpServlet {
 				cs.setString(6, phone);
 				cs.execute();
 				String uId = cs.getString(1);
-				
+
 				st = con.createStatement();
 				ResultSet rs = st.executeQuery("SELECT max(customer_id) FROM bookstore.customer;");
 				rs.next();
@@ -86,8 +96,30 @@ public class Register extends HttpServlet {
 				psc.setString(3, email);
 				psc.setString(4, phone);
 
+				PreparedStatement psa = con.prepareStatement(
+						"insert into Address (addess_id, customer_id, street, city, state, zip, address_type)\r\n"
+								+ "values (?, ?, ?, ?, ?, ?, ?)");
+
+				psa.setInt(2, cusId);
+				psa.setString(3, street);
+				psa.setString(4, city);
+				psa.setString(5, state);
+				psa.setString(6, zip);
+				psa.setString(7, "'S'");
+
+				PreparedStatement pscc = con.prepareStatement(
+						"insert into Payment_Card (card_id, cutomer_id, card_number, expiration_date, card_type)\r\n"
+								+ "values (?, ?, ?, ?, ?)");
+
+				pscc.setInt(2, cusId);
+				pscc.setString(3, ccnum);
+				pscc.setString(4, expDate);
+				pscc.setString(5, getCardType(ccnum));
+
 				ps.executeUpdate();
 				psc.executeUpdate();
+				psa.executeUpdate();
+				pscc.executeUpdate();
 
 			} else {
 				test = false;
@@ -125,6 +157,26 @@ public class Register extends HttpServlet {
 			RequestDispatcher rd = request.getRequestDispatcher("register-confirmation.html");
 			rd.include(request, response);
 		}
+
+	}
+
+	public String getCardType(String ccnum) {
+
+		String type = "";
+		if (ccnum.charAt(0) == '3') {
+			type = "'A'";
+		}
+		if (ccnum.charAt(0) == '4') {
+			type = "'V'";
+		}
+		if (ccnum.charAt(0) == '5') {
+			type = "'M'";
+		}
+		if (ccnum.charAt(0) == '6') {
+			type = "'D'";
+		}
+
+		return type;
 
 	}
 }
