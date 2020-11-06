@@ -58,18 +58,25 @@ public class editProfile extends HttpServlet{
             	//Gets customer_id for use
             	Statement st = con.createStatement();
             	ResultSet rs = st.executeQuery("SELECT customer_id, bookstore.user.user_id FROM bookstore.customer");
+            	while(rs.next()) {
             		if(rs.getString(2).equals(userID)) {
             			customerID = rs.getString(1);
             		}
             	}
+            }
             
             	//Get Current Information
             	Statement st2 = con.createStatement();
-            	ResultSet rs2 = st.executeQuery("SELECT first_name, last_name, FROM bookstore.user");
-            	
-            	
+            	ResultSet rs2 = st.executeQuery("SELECT user_id, first_name, last_name, FROM bookstore.user");
+            	while(rs2.next()) {
+            		if(rs.getString(1).equals(userID){
+            			currentFName = rs.getString(2);
+            			currentLName = rs.getString(3);
+            		}
+            	}
             	//Display Current information
-            	
+            	out.println("<b>" + "Current Name (First Last) " + currentFName + " " + currentLName + "</b>"); 
+                       	
             
             	//Update user table in db(First and last names, password
             	String query3 = "UPDATE User set first_name=?,last_name=?,password=? where userID=" + userID;
