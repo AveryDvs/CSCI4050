@@ -230,12 +230,12 @@ footer{
 /* Text Input for Registration Page */
 
 input[type=text], input[type=password], input[type=email] {
-  width: 96%;
-  padding: 15px;
-  margin: 5px 0 22px 0;
-  display: inline-block;
-  border: none;
-  background: #f1f1f1;
+  width: 96% !important;
+  padding: 15px !important;
+  margin: 5px 0 22px 0 !important;
+  display: inline-block !important;
+  border: none !important;
+  background: #f1f1f1 !important;
 }
 
 /* Set a style for the submit/register button */
