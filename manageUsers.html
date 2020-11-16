@@ -7,7 +7,7 @@
   <meta name="description" content="Online Bookstore">
   <meta name="keywords" content="bookstore, shopping, ecommerce, books, shop">
   <meta name="author" content="Avery Davis">
-  <title>Admin | Books</title>
+  <title>Admin | Users</title>
   <link rel="stylesheet" href="./css/adminstylesheet.css">
   <script src="./js/scritps.js"></script>
 </head>
@@ -32,63 +32,15 @@
 
   <!-- Add all page content inside this div if you want the side nav to push page content to the right (not used if you only want the sidenav to sit on top of the page -->
   <div id="main">
-    <h2>Manage Books</h2>
+    <h2>Manage Users</h2>
     <hr>
-    <h4>Book Catalog</h4>
-    <div class="tables" id="bookTable">
-      <!--
-      <div style="overflow-x:auto;">
-        <table>
-          <th>Serial #</th>
-          <th>Book Title</th>
-          <th>Author</th>
-          <th>MSRP</th>
-          <th>In Stock</th>
-          <th>Purchased</th>
-          <th>Returned</th>
-          </tr>
-          <tr>
-            <td>AR001</td>
-            <td>The Fountainhead</td>
-            <td>Ayn Rand</td>
-            <td>$12.00</td>
-            <td>100</td>
-            <td>50</td>
-            <td>1</td>
-          </tr>
-          <tr>
-            <td>HM001</td>
-            <td>Norwegian Wood</td>
-            <td>Haruki Murakami</td>
-            <td>$14.00</td>
-            <td>100</td>
-            <td>94</td>
-            <td>8</td>
-          </tr>
-          <tr>
-            <td>WG001</td>
-            <td>Neuromancer</td>
-            <td>William Gibson</td>
-            <td>$14.00</td>
-            <td>100</td>
-            <td>67</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td>HM002</td>
-            <td>Moby Dick</td>
-            <td>Herman Melville</td>
-            <td>$12.00</td>
-            <td>100</td>
-            <td>30</td>
-            <td>2</td>
-        </table>
-      </div>
-    -->
+    <h4>Users</h4>
+    <div class="tables" id="userTable">
+      
     </div>
     <hr>
     <div class="admintool" id="addBook">
-      <label for="newbook" class="input-label"> <b>Add New Book</b></label>
+      <label for="newbook" class="input-label"> <b>Add New User</b></label>
       <br> <!--Book Table-->
       <input type="text" class="ISBN" placeholder="ISBN">
       <input type="text" class="category" placeholder="Category*" required>      
@@ -100,15 +52,10 @@
       <input type="text" class="author_firstname" placeholder="Author First Name" required>
       <input type="text" class="author_lastname" placeholder="Author Last Name" required>
       <br> <!--Inventory Table-->
-      <input type="text" class="title" placeholder="Stock on Hand">
-      <input type="text" class="title" placeholder="MSRP">
-      <select name="Book Status" id="Book Status">
-        <option value="A">Available</option>
-        <option value="L">Low Stock</option>
-        <option value="O">Out of Stock</option>
-      </select>
+      <input type="text" class="title" placeholder="Stock on Hand" required>
+      <input type="text" class="title" placeholder="MSRP" required>
       <br>
-      <button type="submit" class="Add">Add New Book</button>
+      <button type="submit" class="Add">Add New User</button>
     </div>
     <hr>
     <div class="adminTool" id="editBook">
@@ -128,11 +75,6 @@
       <br>
       <input type="text" class="title" placeholder="Stock on Hand">
       <input type="text" class="title" placeholder="MSRP">
-      <select name="Book Status" id="Book Status">
-        <option value="A">Available</option>
-        <option value="L">Low Stock</option>
-        <option value="O">Out of Stock</option>
-      </select>
       <br>
 
       <button type="submit" class="adminTool">Submit Changes</button>
